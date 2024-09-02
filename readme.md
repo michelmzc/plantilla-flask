@@ -6,4 +6,8 @@
 2. Inicalice ambiente virtual 
 3. Ejecute > pip install -r requirements.txt
 4. Cree base de datos 'coding_dojo'
-5. Ejecute server.py
+5. Ejecute 
+    > flask db init 
+    > flask db migrate
+    > flask db upgrade
+6. Ejecute server.py
