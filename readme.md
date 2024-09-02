@@ -4,6 +4,6 @@
 
 1. Clone mediante HTTPS el repositorio 
 2. Inicalice ambiente virtual 
-3. Ejecute >pip install requirements.txt
+3. Ejecute > pip install -r requirements.txt
 4. Cree base de datos 'coding_dojo'
 5. Ejecute server.py
