@@ -8,6 +8,9 @@
 4. Cree base de datos 'coding_dojo'
 5. Ejecute 
     > flask db init 
+
     > flask db migrate
-    > flask db upgrade
+
+    > flask db upgrade hola tio
+    
 6. Ejecute server.py
