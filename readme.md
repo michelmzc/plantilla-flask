@@ -2,15 +2,10 @@
 
 ## Instrucciones
 
-1. Clone mediante HTTPS el repositorio 
-2. Inicalice ambiente virtual 
-3. Ejecute > pip install -r requirements.txt
+1. Clone repositorio mediante HTTPS `https://github.com/michelmzc/plantilla-flask.git`
+2. Inicalice ambiente virtual dentro de carpeta plantilla `python -m venv venv`, `.\venv\Scripts\Activate.ps1`
+3. Ejecute `pip install -r requirements.txt`
 4. Cree base de datos 'coding_dojo'
-5. Ejecute 
-    > flask db init 
+5. Ejecute `flask db init` , `flask db migrate` , `flask db upgrade`
 
-    > flask db migrate
-
-    > flask db upgrade hola tio
-    
 6. Ejecute server.py
