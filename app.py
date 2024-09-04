@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 class Mascota(db.Model):
     __tablename__  = "mascotas"
     id             = db.Column(db.Integer, primary_key = True)
-    nombres        = db.Column(db.String(45), nullable = False)
+    nombre         = db.Column(db.String(45), nullable = False)
     tipo           = db.Column(db.String(45), nullable = False)
     color          = db.Column(db.String(45), nullable = False)
     updated_at     = db.Column(db.DateTime(), nullable = False)
