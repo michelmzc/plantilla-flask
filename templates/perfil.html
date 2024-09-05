@@ -1,0 +1,24 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Perfil de usuario
+{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="col-4"></div>
+        <div class="col-4">
+            {% for usuario in usuarios %}
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ usuario.foto }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ usuario.nombre }} {{ usuario.apellido }}</h5>
+                    <p class="card-text">{{usuario.correo }}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            {% endfor %}    
+        </div>
+        <div class="col-4"></div>
+    </div>
+    
+{% endblock %}
