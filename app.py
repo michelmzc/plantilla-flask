@@ -11,11 +11,13 @@ db = SQLAlchemy(app)
 
 from forms import FormularioRegistro
 
+
+
 class Usuario(db.Model):
     __tablename__  = "usuarios"
     id             = db.Column(db.Integer, primary_key = True)
     nombre         = db.Column(db.String(45), nullable = False)
-    apellido       = db.Column(db.String(45), nullable = False)
+    apellido       = db.Column(db.String(45), nullable = True)
     correo         = db.Column(db.String(45), nullable = False)
     clave          = db.Column(db.String(255), nullable = False) 
     foto           = db.Column(db.Text, nullable=True)
@@ -40,14 +42,29 @@ def auth(form_registro=None):
 
 @app.route("/register", methods=["POST"])
 def register():
-    form = FormularioRegistro()
+    form  = FormularioRegistro()
     error = None 
-    print(form.errors)
     if form.validate_on_submit():
         print("form valido")
         flash("Form valido")
-        return auth()
+        nombre = form.nombre.data
+        correo = form.correo.data 
+        clave  = form.clave.data 
+        
+        usuario = Usuario()
+        usuario.nombre = nombre 
+        usuario.correo = correo 
+        usuario.clave  = clave 
+        
+        db.session.add(usuario)
+        db.session.commit()
+        
+        return redirect("/home")
     else:
         print("form invalido")
         flash("Form invalido")
         return auth(form_registro=form)
+
+@app.route("/home")
+def home():
+    return render_template("perfil.html")
