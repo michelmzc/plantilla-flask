@@ -9,11 +9,15 @@ Bienvenido al sitio!
     <div class="col">
         <div class="row">
             <h1>Registro de usuarios</h1>
-            <form>
+            <form action="/auth" method="POST">
                 {{ form_registro.hidden_tag() }}
                 <div class="mb-3">
                     {{ form_registro.nombre.label }}
                     {{ form_registro.nombre(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form_registro.correo.label }}
+                    {{ form_registro.correo(class="form-control") }}
                 </div>
                 <div class="mb-3">
                     {{ form_registro.clave.label }}
