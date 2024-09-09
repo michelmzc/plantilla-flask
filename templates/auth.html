@@ -10,20 +10,20 @@ Bienvenido al sitio!
         <div class="row">
             <h1>Registro de usuarios</h1>
             <form>
+                {{ form_registro.hidden_tag() }}
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Correo Electrónico</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    {{ form_registro.nombre.label }}
+                    {{ form_registro.nombre(class="form-control") }}
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Clave</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
+                    {{ form_registro.clave.label }}
+                    {{ form_registro.clave(class="form-control") }}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Repetir Clave</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    {{ form_registro.confirmar_clave.label }}
+                    {{ form_registro.confirmar_clave(class="form-control") }}
                   </div>
-                
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                {{ form_registro.submit }}
               </form>
         </div>
     </div>
