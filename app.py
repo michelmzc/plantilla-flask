@@ -17,7 +17,7 @@ class Usuario(db.Model):
     clave          = db.Column(db.String(255), nullable = False) 
     foto           = db.Column(db.Text, nullable=True)
     #Datos según proyecto
-    
+
     @staticmethod
     def obtener_todos():
         all_items = db.session.execute(db.select(Usuario)).scalars()
@@ -32,4 +32,4 @@ Migrate(app,db)
 @app.route("/")
 def index():
     usuarios = Usuario().obtener_todos()
-    return render_template("perfil.html",usuarios=usuarios)
+    return render_template("auth.html")
