@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect
 from sqlalchemy import select
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -33,6 +33,23 @@ class Usuario(db.Model):
 Migrate(app,db)
 
 @app.route("/")
-def index():
-    form_registro = FormularioRegistro()
+def auth(form_registro=None):
+    if form_registro == None:
+        form_registro = FormularioRegistro()
     return render_template("auth.html",form_registro=form_registro)
+
+@app.route("/register", methods=["POST"])
+def register():
+    form = FormularioRegistro()
+    error = None 
+    
+    print(form.errors)
+        
+    if form.validate_on_submit():
+        print("form valido")
+        flash("Form valido")
+    else:
+        print("form invalido")
+        flash("Form invalido")
+        return auth(form_registro=form)
+    return redirect("/")
