@@ -67,4 +67,5 @@ def register():
 
 @app.route("/home")
 def home():
-    return render_template("perfil.html")
+    usuarios = Usuario().obtener_todos()
+    return render_template("perfil.html",usuarios=usuarios)
