@@ -42,14 +42,12 @@ def auth(form_registro=None):
 def register():
     form = FormularioRegistro()
     error = None 
-    
     print(form.errors)
-        
     if form.validate_on_submit():
         print("form valido")
         flash("Form valido")
+        return auth()
     else:
         print("form invalido")
         flash("Form invalido")
         return auth(form_registro=form)
-    return redirect("/")
