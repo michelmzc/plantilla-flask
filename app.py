@@ -1,4 +1,5 @@
 from flask import Flask, render_template, flash, redirect
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import select
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -11,16 +12,12 @@ db = SQLAlchemy(app)
 
 from forms import FormularioRegistro
 
-
-
 class Usuario(db.Model):
     __tablename__  = "usuarios"
     id             = db.Column(db.Integer, primary_key = True)
     nombre         = db.Column(db.String(45), nullable = False)
-    apellido       = db.Column(db.String(45), nullable = True)
     correo         = db.Column(db.String(45), nullable = False)
     clave          = db.Column(db.String(255), nullable = False) 
-    foto           = db.Column(db.Text, nullable=True)
     #Datos según proyecto
 
     @staticmethod
@@ -32,6 +29,11 @@ class Usuario(db.Model):
         print("Items de consulta:",all_items_list)
         return(all_items_list)     
 
+    def establecer_clave(self, clave):
+        self.clave = generate_password_hash(clave)
+    def chequeo_clave(self, clave):
+        return check_password_hash(self.clave, clave)
+    
 Migrate(app,db)
 
 @app.route("/")
@@ -54,7 +56,7 @@ def register():
         usuario = Usuario()
         usuario.nombre = nombre 
         usuario.correo = correo 
-        usuario.clave  = clave 
+        usuario.establecer_clave(clave)
         
         db.session.add(usuario)
         db.session.commit()
