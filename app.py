@@ -10,7 +10,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app)
 
-from forms import FormularioRegistro
+from forms import FormularioRegistro, FormularioAcceso
 
 class Usuario(db.Model):
     __tablename__  = "usuarios"
@@ -37,10 +37,12 @@ class Usuario(db.Model):
 Migrate(app,db)
 
 @app.route("/")
-def auth(form_registro=None):
+def auth(form_registro=None, form_acceso=None):
     if form_registro == None:
         form_registro = FormularioRegistro()
-    return render_template("auth.html",form_registro=form_registro)
+    if form_acceso == None: 
+        form_acceso = FormularioAcceso()
+    return render_template("auth.html",form_registro=form_registro,form_acceso=form_acceso)
 
 @app.route("/register", methods=["POST"])
 def register():
