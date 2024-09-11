@@ -12,6 +12,17 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 </head>
 <body>
+    <br/>
+    {% if current_user.is_authenticated %}
+        <div class="row">
+            <div class="col-10">
+                <h2>Bienvenido {{ current_user.nombre }}!</h2>
+            </div>
+            <div class="col-2">
+                <a href="/">Home</a> | <a href="/logout">Logout</a>
+            </div>
+        </div>
+    {% endif %}
     {% block contenido %}
     {% endblock %}
 </body>

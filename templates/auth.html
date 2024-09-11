@@ -50,6 +50,15 @@ Bienvenido al sitio!
                     <br>
                     {{ form_acceso.submit(class="btn btn-primary") }}
                 </form>
+                {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         </div>
     </div>
 </div>
