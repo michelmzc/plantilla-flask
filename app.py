@@ -29,7 +29,12 @@ Migrate(app,db)
 @login_manager.user_loader
 def load_user(user_id):
     return Usuario.obtener_por_id(int(user_id))
-
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 #Rutas
 # Rutas de autentificación
@@ -60,18 +65,26 @@ def register():
         nombre = form.nombre.data
         correo = form.correo.data 
         clave  = form.clave.data 
-        
-        #Generamos una instancia de datos
-        usuario = Usuario()
-        usuario.nombre = nombre 
-        usuario.correo = correo 
-        usuario.establecer_clave(clave)
-        
-        #Agregamos a la base datos
-        db.session.add(usuario)
-        db.session.commit()
-        
-        return redirect("/home")
+        #Consultamos si existe en la db 
+        usuario = Usuario().obtener_por_correo(correo)
+        if usuario is not None:
+            error = f"El correo {correo} ya se encuentra registrado"
+            print(error)
+            flash(error)
+            return(redirect("/"))
+        else:
+            flash(f'Registro solicitado para el usuario { correo }')
+            #Generamos una instancia de datos
+            usuario = Usuario()
+            usuario.nombre = nombre 
+            usuario.correo = correo 
+            usuario.establecer_clave(clave)
+            
+            #Agregamos a la base datos
+            db.session.add(usuario)
+            db.session.commit()
+            
+            return redirect("/home")
     else:
         print("form invalido")
         flash("Form invalido")
