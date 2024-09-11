@@ -1,3 +1,6 @@
+"""
+    Archivo donde se definen los formularios del sistema
+"""
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, EmailField, TextAreaField, IntegerField, DateField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
