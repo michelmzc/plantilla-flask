@@ -21,6 +21,7 @@ login_manager.login_view = "auth"
 #Importación de módulos propios
 from forms import FormularioRegistro, FormularioAcceso
 from models import Usuario
+from controllers import ControladorUsuarios
 
 #Inicialización de versiones de la bases de datos
 Migrate(app,db)
@@ -74,16 +75,9 @@ def register():
             return(redirect("/"))
         else:
             flash(f'Registro solicitado para el usuario { correo }')
-            #Generamos una instancia de datos
-            usuario = Usuario()
-            usuario.nombre = nombre 
-            usuario.correo = correo 
-            usuario.establecer_clave(clave)
-            
-            #Agregamos a la base datos
-            db.session.add(usuario)
-            db.session.commit()
-            
+            #Utilización de un controlador entre Vista y Modelo
+            ControladorUsuarios().crear_usuario(nombre, correo, clave)
+            #Generamos una instancia de datos            
             return redirect("/home")
     else:
         print("form invalido")
