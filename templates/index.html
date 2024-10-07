@@ -4,10 +4,10 @@
 {% endblock %}
 
 {% block contenido %}
-    <div class="container text-center">
+    <div class="container">
         <br>
         <div class="row">
-            <div class="col">
+            <div class="col text-center">
                     <h2>Nuevo Curso</h2>
                     <br>
                     <form action="/agregar_curso" method="POST">
@@ -17,7 +17,14 @@
                     </form>
             </div>
             <div class="col-6">
-                <h2>Todos los cursos</h2>   
+                <h2 class="text-center">Todos los cursos</h2>   
+                <br>
+                <ul>
+                  {% for curso in cursos %}
+                    <li><a href="/cursos/{{ curso.id }}">{{ curso.nombre }}</a></li>
+                  {% endfor %}
+                </ul>
+                <a href="/agregar_estudiante"><strong>Agregar Estudiante</strong></a>
             </div>
         </div>    
     </div>

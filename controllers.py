@@ -28,3 +28,11 @@ class ControladorCursos:
         db.session.add(nuevo_curso)
         db.session.commit()
         print("Nuevo curso agregado")
+    
+    @staticmethod
+    def obtener_todos():
+        all_items = db.session.execute(db.select(Curso)).scalars()
+        all_items_list = []
+        for item in all_items:
+            all_items_list.append(item)
+        return all_items_list

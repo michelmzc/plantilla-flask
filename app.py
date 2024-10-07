@@ -120,7 +120,8 @@ def logout():
 @login_required
 def home():
     formulario_curso = FormularioAgregarCurso() 
-    return render_template("index.html", formulario_curso=formulario_curso)
+    todos_los_cursos = ControladorCursos.obtener_todos()
+    return render_template("index.html", formulario_curso=formulario_curso, cursos=todos_los_cursos)
 
 @app.route("/agregar_curso", methods=["POST"])
 @login_required
