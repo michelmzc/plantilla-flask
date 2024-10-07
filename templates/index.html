@@ -1,35 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COding</title>
-    
-</head>
-<body>
-  <br/>
-    <div class="container center">
-        <h1>Usuarios</h1>
+{% extends "base_template.html" %}
+{% block titulo %}
+    Cursos
+{% endblock %}
+
+{% block contenido %}
+    <div class="container text-center">
+        <br>
+        <div class="row">
+            <div class="col">
+                    <h2>Nuevo Curso</h2>
+                    <br>
+                    
+                    <form action="/agregar_curso">
+                      {{ formulario_curso.nombre.label }}
+                      {{ formulario_curso.nombre }}
+                      {{ formulario_curso.submit }}
+                    </form>
+            </div>
+            <div class="col-6">
+                <h2>Todos los cursos</h2>   
+            </div>
+        </div>    
     </div>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Correo</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-          <tr>
-            <th scope="row">{{ usuario.id }}</th>
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.apellido }}</td>
-            <td>{{ usuario.correo }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-</body>
-</html>
+{% endblock %}

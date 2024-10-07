@@ -6,13 +6,17 @@ from wtforms import StringField, SubmitField, PasswordField, EmailField, TextAre
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 class FormularioRegistro(FlaskForm):    
-    nombre     = StringField('Nombre', validators=[DataRequired(), Length(min=3)])
-    correo     = EmailField('Correo', validators=[DataRequired(), Email()])
-    clave      = PasswordField('Clave', validators=[DataRequired(), EqualTo('confirmar_clave', message="Las claves deben ser iguales.")])
+    nombre          = StringField('Nombre', validators=[DataRequired(), Length(min=3)])
+    correo          = EmailField('Correo', validators=[DataRequired(), Email()])
+    clave           = PasswordField('Clave', validators=[DataRequired(), EqualTo('confirmar_clave', message="Las claves deben ser iguales.")])
     confirmar_clave = PasswordField('Confirmar clave', validators=[DataRequired()])
-    submit = SubmitField('Registrarme')
+    submit          = SubmitField('Registrarme')
 
 class FormularioAcceso(FlaskForm):    
     correo    = EmailField('Correo', validators=[DataRequired(), Email()])
-    clave = PasswordField('Clave', validators=[DataRequired()])    
-    submit   = SubmitField('Acceder')
+    clave     = PasswordField('Clave', validators=[DataRequired()])    
+    submit    = SubmitField('Acceder')
+
+class FormularioAgregarCurso(FlaskForm):
+    nombre = StringField('Nombre', validators=[DataRequired(), Length(min=1,max=30)])
+    submit = SubmitField('Agregar')

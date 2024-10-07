@@ -19,7 +19,7 @@ login_manager = LoginManager(app) #iniciamos uso de sesiones
 login_manager.login_view = "auth"
 
 #Importación de módulos propios
-from forms import FormularioRegistro, FormularioAcceso
+from forms import FormularioRegistro, FormularioAcceso, FormularioAgregarCurso
 from models import Usuario
 from controllers import ControladorUsuarios
 
@@ -112,8 +112,8 @@ def login():
 @app.route("/home")
 @login_required
 def home():
-    usuarios = Usuario().obtener_todos()
-    return render_template("perfil.html",usuarios=usuarios)
+    formulario_curso = FormularioAgregarCurso() 
+    return render_template("index.html", formulario_curso=formulario_curso)
 
 @app.route("/logout")
 def logout():
