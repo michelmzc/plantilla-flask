@@ -10,8 +10,7 @@
             <div class="col">
                     <h2>Nuevo Curso</h2>
                     <br>
-                    
-                    <form action="/agregar_curso">
+                    <form action="/agregar_curso" method="POST">
                       {{ formulario_curso.nombre.label }}
                       {{ formulario_curso.nombre }}
                       {{ formulario_curso.submit }}

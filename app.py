@@ -20,7 +20,7 @@ login_manager.login_view = "auth"
 
 #Importación de módulos propios
 from forms import FormularioRegistro, FormularioAcceso, FormularioAgregarCurso
-from models import Usuario
+from models import Usuario, Curso
 from controllers import ControladorUsuarios
 
 #Inicialización de versiones de la bases de datos
@@ -108,6 +108,13 @@ def login():
             print(f"El usuario no esta registrado")
             return(redirect("/"))
     
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash(f"El usuario ha cerrado sesión")
+    print(f"El usuario ha cerrado sesión")
+    return(redirect("/"))
+
 #Ruta que nos lleva al inicio del usuario
 @app.route("/home")
 @login_required
@@ -115,9 +122,15 @@ def home():
     formulario_curso = FormularioAgregarCurso() 
     return render_template("index.html", formulario_curso=formulario_curso)
 
-@app.route("/logout")
-def logout():
-    logout_user()
-    flash(f"El usuario ha cerrado sesión")
-    print(f"El usuario ha cerrado sesión")
-    return(redirect("/"))
+@app.route("/agregar_curso", methods=["POST"])
+@login_required
+def agregar_curso():
+    formulario_curso = FormularioAgregarCurso()
+    if formulario_curso.validate_on_submit:
+        nuevo_curso        = Curso()
+        nuevo_curso.nombre = formulario_curso.nombre.data 
+        db.session.add(nuevo_curso)
+        db.session.commit()
+        print("Nuevo curso agregado")
+
+    return(redirect("/home"))
