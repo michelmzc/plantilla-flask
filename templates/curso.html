@@ -1,0 +1,33 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Curso: {{ curso.nombre }}
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <br>
+    <h2>Estudiantes de {{ curso.nombre }}</h2>
+
+    <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Edad</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+            {% for estudiante in curso.estudiantes %}
+            <tr>
+                <th scope="row">{{ estudiante.usuario["id"] }}</th>
+                <td>{{ estudiante.usuario["nombre"] }}</td>
+                <td>{{ estudiante.usuario["apellidos"] }}</td>
+                <td>{{ estudiante.usuario["edad"] }} </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

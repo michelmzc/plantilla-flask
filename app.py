@@ -131,3 +131,9 @@ def agregar_curso():
         ControladorCursos().crear_curso(formulario_curso.nombre.data)
 
     return(redirect("/home"))
+
+@app.route("/cursos/<int:id>")
+@login_required 
+def ver_curso(id):
+    curso = ControladorCursos.obtener_por_id(id)
+    return render_template("curso.html", curso=curso)

@@ -10,6 +10,8 @@ class Usuario(db.Model, UserMixin):
     __tablename__  = "usuarios"
     id             = db.Column(db.Integer, primary_key = True)
     nombre         = db.Column(db.String(45),nullable=False)
+    apellidos      = db.Column(db.String(255), nullable = True)
+    edad           = db.Column(db.Integer, nullable = True)
     correo         = db.Column(db.String(45),nullable=False,unique=True)
     clave          = db.Column(db.String(255),nullable=False) 
     #Datos según proyecto
@@ -44,15 +46,17 @@ class Curso(db.Model):
     __tablename__ = "cursos"
     id            = db.Column(db.Integer, primary_key = True)
     nombre        = db.Column(db.String(30), nullable = False)
-
+    estudiantes   = db.relationship("Estudiante", back_populates = "curso")
     
 class Estudiante(db.Model):
     __tablename__ = "estudiantes"
     id            = db.Column(db.Integer, primary_key = True)
-
+    
     #Relaciones con demás tablas 
     #Llave foránea con relación a usuarios
     id_usuario    = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
     #Relación entre la tabla usuario y estudiante en python (para ORM)
     usuario       = db.relationship("Usuario", back_populates = "estudiante")
-    
+    # Relación entre la tabla usuario y su curso
+    id_curso      = db.Column(db.Integer, db.ForeignKey("cursos.id"))
+    curso         = db.relationship("Curso", back_populates = "estudiantes")

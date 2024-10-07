@@ -36,3 +36,9 @@ class ControladorCursos:
         for item in all_items:
             all_items_list.append(item)
         return all_items_list
+    
+    @staticmethod
+    def obtener_por_id(id):
+        item = db.session.execute(db.select(Curso).filter_by(id=id)).scalar_one()
+        return item
+    
