@@ -21,7 +21,7 @@ login_manager.login_view = "auth"
 #Importación de módulos propios
 from forms import FormularioRegistro, FormularioAcceso, FormularioAgregarCurso
 from models import Usuario, Curso
-from controllers import ControladorUsuarios
+from controllers import ControladorUsuarios, ControladorCursos
 
 #Inicialización de versiones de la bases de datos
 Migrate(app,db)
@@ -127,10 +127,6 @@ def home():
 def agregar_curso():
     formulario_curso = FormularioAgregarCurso()
     if formulario_curso.validate_on_submit:
-        nuevo_curso        = Curso()
-        nuevo_curso.nombre = formulario_curso.nombre.data 
-        db.session.add(nuevo_curso)
-        db.session.commit()
-        print("Nuevo curso agregado")
+        ControladorCursos().crear_curso(formulario_curso.nombre.data)
 
     return(redirect("/home"))
