@@ -11,7 +11,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 #Iniciación y configuración de la app
 app = Flask(__name__) 
 app.config["SECRET_KEY"] = "mi clave!"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root@localhost:3306/coding_dojo"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:12345678@localhost:3306/coding_dojo"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app) #iniciamos bases de datos
 

@@ -14,6 +14,9 @@ class Usuario(db.Model, UserMixin):
     clave          = db.Column(db.String(255),nullable=False) 
     #Datos según proyecto
     
+    #Relaciones 
+    estudiante     = db.relationship("Estudiante", back_populates = "usuario")
+
     def establecer_clave(self, clave):
         self.clave = generate_password_hash(clave)
     def chequeo_clave(self, clave):
@@ -36,3 +39,20 @@ class Usuario(db.Model, UserMixin):
     def obtener_por_id(id):
         print(f"Consultando por el usuario con id{id} en db")
         return Usuario.query.get(id)
+
+class Curso(db.Model):
+    __tablename__ = "cursos"
+    id            = db.Column(db.Integer, primary_key = True)
+    nombre        = db.Column(db.String(30), nullable = False)
+
+    
+class Estudiante(db.Model):
+    __tablename__ = "estudiantes"
+    id            = db.Column(db.Integer, primary_key = True)
+
+    #Relaciones con demás tablas 
+    #Llave foránea con relación a usuarios
+    id_usuario    = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
+    #Relación entre la tabla usuario y estudiante en python (para ORM)
+    usuario       = db.relationship("Usuario", back_populates = "estudiante")
+    
