@@ -2,7 +2,7 @@
 Archivo app.py: módulo principal de la aplicación.
 """
 # Importamos librerias necesarias 
-from flask import Flask, render_template, flash, redirect
+from flask import Flask, render_template, flash, redirect, request
 
 from flask_sqlalchemy import SQLAlchemy #base de datos
 from flask_migrate import Migrate #versiones de bases de datos
@@ -137,3 +137,4 @@ def agregar_curso():
 def ver_curso(id):
     curso = ControladorCursos.obtener_por_id(id)
     return render_template("curso.html", curso=curso)
+
