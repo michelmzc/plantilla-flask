@@ -8,17 +8,14 @@ from werkzeug.security import generate_password_hash, check_password_hash #segur
 #Modelos de bases de datos
 class Usuario(db.Model, UserMixin):
     __tablename__  = "usuarios"
-    id             = db.Column(db.Integer, primary_key = True)
-    nombre         = db.Column(db.String(45),nullable=False)
-    apellidos      = db.Column(db.String(255), nullable = True)
-    edad           = db.Column(db.Integer, nullable = True)
-    correo         = db.Column(db.String(45),nullable=False,unique=True)
+    id             = db.Column(db.Integer,primary_key=True)
+    nombre         = db.Column(db.String(255),nullable=False)
+    apellidos      = db.Column(db.String(255),nullable=True)
+    edad           = db.Column(db.Integer,nullable=True)
+    correo         = db.Column(db.String(255),nullable=False,unique=True)
     clave          = db.Column(db.String(255),nullable=False) 
     #Datos según proyecto
     
-    #Relaciones 
-    estudiante     = db.relationship("Estudiante", back_populates = "usuario")
-
     def establecer_clave(self, clave):
         self.clave = generate_password_hash(clave)
     def chequeo_clave(self, clave):
@@ -42,11 +39,32 @@ class Usuario(db.Model, UserMixin):
         print(f"Consultando por el usuario con id{id} en db")
         return Usuario.query.get(id)
 
+    #Relaciones 
+    estudiante     = db.relationship("Estudiante",back_populates="usuario")
+
 class Curso(db.Model):
     __tablename__ = "cursos"
     id            = db.Column(db.Integer, primary_key = True)
     nombre        = db.Column(db.String(30), nullable = False)
     estudiantes   = db.relationship("Estudiante", back_populates = "curso")
+
+    @staticmethod
+    def obtener_todos():
+        all_items = db.session.execute(db.select(Curso)).scalars()
+        all_items_list = []
+        for item in all_items:
+            all_items_list.append(item)   
+        print("Items de consulta:",all_items_list)
+        return(all_items_list) 
+
+    @staticmethod
+    def obtener_como_opciones():
+        all_items = db.session.execute(db.select(Curso)).scalars()
+        all_items_list = []
+        for item in all_items:
+            all_items_list.append((item.id,item.nombre))   
+        print("Items de consulta:",all_items_list)
+        return(all_items_list) 
     
 class Estudiante(db.Model):
     __tablename__ = "estudiantes"

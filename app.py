@@ -19,7 +19,7 @@ login_manager = LoginManager(app) #iniciamos uso de sesiones
 login_manager.login_view = "auth"
 
 #Importación de módulos propios
-from forms import FormularioRegistro, FormularioAcceso, FormularioAgregarCurso
+from forms import FormularioRegistro, FormularioAcceso, FormularioAgregarCurso, FormularioNuevoEstudiante
 from models import Usuario, Curso
 from controllers import ControladorUsuarios, ControladorCursos
 
@@ -138,3 +138,11 @@ def ver_curso(id):
     curso = ControladorCursos.obtener_por_id(id)
     return render_template("curso.html", curso=curso)
 
+@app.route("/agregar_estudiante", methods=["GET","POST"])
+@login_required
+def agregar_estudiante():
+    if request.method == "GET":
+        form = FormularioNuevoEstudiante()
+        cursos = Curso().obtener_como_opciones()
+        form.cursos.choices = cursos
+        return render_template("agregar_estudiante.html",form=form)
