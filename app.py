@@ -20,7 +20,7 @@ login_manager.login_view = "auth"
 
 #Importación de módulos propios
 from forms import FormularioRegistro, FormularioAcceso, FormularioAgregarCurso, FormularioNuevoEstudiante
-from models import Usuario, Curso
+from models import Usuario, Curso, Estudiante
 from controllers import ControladorUsuarios, ControladorCursos
 
 #Inicialización de versiones de la bases de datos
@@ -141,8 +141,35 @@ def ver_curso(id):
 @app.route("/agregar_estudiante", methods=["GET","POST"])
 @login_required
 def agregar_estudiante():
+    cursos = Curso().obtener_como_opciones()
     if request.method == "GET":
         form = FormularioNuevoEstudiante()
-        cursos = Curso().obtener_como_opciones()
         form.cursos.choices = cursos
         return render_template("agregar_estudiante.html",form=form)
+    
+    if request.method == "POST":
+        form = FormularioNuevoEstudiante()
+        form.cursos.choices = cursos
+        print(form.cursos.data)
+        if form.validate_on_submit():
+            nuevo_usuario = Usuario()
+            nuevo_usuario.nombre = form.nombre.data 
+            nuevo_usuario.apellidos = form.apellidos.data 
+            nuevo_usuario.edad = form.edad.data
+
+            # agregamos a la tabla usuario, después nos devolverá su ID autoincremental 
+            db.session.add(nuevo_usuario)
+            db.session.commit()
+
+            nuevo_estudiante = Estudiante()
+            nuevo_estudiante.id_curso = form.cursos.data 
+            # ahora obtenemos el nuevo ID del estudiante
+            nuevo_estudiante.id_usuario = nuevo_usuario.id 
+            # agregamos a la tabla estudiante 
+            db.session.add(nuevo_estudiante)
+            db.session.commit() 
+            return redirect("/cursos/"+str(nuevo_estudiante.curso.id))
+        else:
+            flash("Error en ingreso de datos")
+            print(form.errors)
+            return redirect("/agregar_estudiante")

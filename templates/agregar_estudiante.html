@@ -10,6 +10,7 @@
     <h3>Agregar estudiante</h3>
     <br>
     <form action="/agregar_estudiante" method="POST">
+        {{ form.hidden_tag() }}
         <div class="col-6">
             <div class="mb-6 row">
                 {{ form.cursos.label(class="col-sm-2 col-form-label") }}
@@ -23,12 +24,12 @@
             <br>
             <div class="mb-6 row">
                 {{ form.apellidos.label(class="col-sm-2 col-form-label") }}
-                <div class="col-sm-10">{{ form.nombre(class="form-control") }} </div>
+                <div class="col-sm-10">{{ form.apellidos(class="form-control") }} </div>
             </div>
             <br>
             <div class="mb-6 row">
                 {{ form.edad.label(class="col-sm-2 col-form-label") }}
-                <div class="col-sm-10">{{ form.nombre(class="form-control") }} </div>
+                <div class="col-sm-10">{{ form.edad(class="form-control") }} </div>
             </div>
             <br>
             {{ form.submit(class="form-control btn btn-primary") }}

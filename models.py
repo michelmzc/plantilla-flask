@@ -12,8 +12,8 @@ class Usuario(db.Model, UserMixin):
     nombre         = db.Column(db.String(255),nullable=False)
     apellidos      = db.Column(db.String(255),nullable=True)
     edad           = db.Column(db.Integer,nullable=True)
-    correo         = db.Column(db.String(255),nullable=False,unique=True)
-    clave          = db.Column(db.String(255),nullable=False) 
+    correo         = db.Column(db.String(255),nullable=True,unique=True)
+    clave          = db.Column(db.String(255),nullable=True) 
     #Datos según proyecto
     
     def establecer_clave(self, clave):
