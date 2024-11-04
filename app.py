@@ -11,7 +11,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 #Iniciación y configuración de la app
 app = Flask(__name__) 
 app.config["SECRET_KEY"] = "mi clave!"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:12345678@localhost:3306/coding_dojo"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root@localhost:3306/coding_dojo"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app) #iniciamos bases de datos
 
@@ -119,9 +119,7 @@ def logout():
 @app.route("/home")
 @login_required
 def home():
-    formulario_curso = FormularioAgregarCurso() 
-    todos_los_cursos = ControladorCursos.obtener_todos()
-    return render_template("index.html", formulario_curso=formulario_curso, cursos=todos_los_cursos)
+    return render_template("index.html")
 
 @app.route("/agregar_curso", methods=["POST"])
 @login_required

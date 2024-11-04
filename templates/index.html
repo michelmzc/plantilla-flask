@@ -5,27 +5,6 @@
 
 {% block contenido %}
     <div class="container">
-        <br>
-        <div class="row">
-            <div class="col text-center">
-                    <h3>Nuevo Curso</h3>
-                    <br>
-                    <form action="/agregar_curso" method="POST">
-                      {{ formulario_curso.nombre.label }}
-                      {{ formulario_curso.nombre }}
-                      {{ formulario_curso.submit }}
-                    </form>
-            </div>
-            <div class="col-6">
-                <h3 class="text-center">Todos los cursos</h3>   
-                <br>
-                <ul>
-                  {% for curso in cursos %}
-                    <li><a href="/cursos/{{ curso.id }}">{{ curso.nombre }}</a></li>
-                  {% endfor %}
-                </ul>
-                <a href="/agregar_estudiante"><strong>Agregar Estudiante</strong></a>
-            </div>
-        </div>    
+        
     </div>
 {% endblock %}
